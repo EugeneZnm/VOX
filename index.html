@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Speech Synthesis</title>
+  <title>VOX</title>
   <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -45,6 +45,9 @@
    function populateVoices(){
     voices = this.getVoices();
     const voiceOptions = voices
+
+      // filter voices to those in english 'en' only
+      // .filter(voice => voice.lang.includes('en'))
       .map(voice => `<option value="${voice.name}"> ${voice.name} (${voice.lang})</option>`)
       .join('')
       voicesDropdown.innerHTML = voiceOptions;
@@ -65,8 +68,26 @@
     }
   }
 
+  // setting options
+  function setOption(){
+    msg[this.name] = this.value;
+    toggle(); 
+  }
+
    speechSynthesis.addEventListener('voiceschanged', populateVoices);
    voicesDropdown.addEventListener('change', setVoice);
+  //  modifying rate pitch message
+  options.forEach(option => option.addEventListener('change', setOption)); 
+
+  // speak button functionality
+  speakButton.addEventListener('click', toggle);
+
+  // stop button
+  stopButton.addEventListener('click', toggle.bind(null, false));
+
+  // alternative method
+  // stopButton.addEventListener('click', () => toggle(false);)
+
 </script>
 
 </body>
