@@ -54,11 +54,15 @@
   function setVoice() {
     // finding corresponding speech synthesis voice object
     msg.voice = voices.find(voice => voice.name === this.value);
+    toggle();
   }
 
   // restarting app when speech is changed
-  function toggle(){
+  function toggle(startOver = true){
     speechSynthesis.cancel(); 
+    if (startOver) {
+    speechSynthesis.speak(msg);
+    }
   }
 
    speechSynthesis.addEventListener('voiceschanged', populateVoices);
