@@ -22,7 +22,7 @@
       <label for="pitch">Pitch:</label>
 
       <input name="pitch" type="range" min="0" max="2" step="0.1">
-      <textarea name="text">Hello! I love JavaScript 👍</textarea>
+      <textarea name="text">AWESOME 👍</textarea>
       <button id="stop">Stop!</button>
       <button id="speak">Speak</button>
 
@@ -50,7 +50,19 @@
       voicesDropdown.innerHTML = voiceOptions;
    }
 
+  //  setting voice
+  function setVoice() {
+    // finding corresponding speech synthesis voice object
+    msg.voice = voices.find(voice => voice.name === this.value);
+  }
+
+  // restarting app when speech is changed
+  function toggle(){
+    speechSynthesis.cancel(); 
+  }
+
    speechSynthesis.addEventListener('voiceschanged', populateVoices);
+   voicesDropdown.addEventListener('change', setVoice);
 </script>
 
 </body>
